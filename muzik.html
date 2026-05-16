@@ -4,6 +4,8 @@
 
 <meta charset="UTF-8">
 
+<title>AR Alat Muzik</title>
+
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -15,21 +17,137 @@ margin:0;
 overflow:hidden;
 }
 
+.scan-text{
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background: rgba(0,0,0,0.7);
+color: white;
+padding: 12px 20px;
+border-radius: 10px;
+z-index: 999;
+font-size: 18px;
+}
+
 </style>
 
 </head>
 
 <body>
 
+<div class="scan-text">
+Scan marker alat muzik
+</div>
+
 <a-scene
+
 mindar-image="imageTargetSrc: ./muzik.mind;"
+
 embedded
+
 vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false">
+
+device-orientation-permission-ui="enabled: false"
+
+color-space="sRGB"
+
+renderer="colorManagement: true; physicallyCorrectLights"
+
+>
+
+<!-- ASSETS -->
+
+<a-assets>
+
+<!-- VIDEO GONG -->
+
+<video
+id="gong-video"
+src="video/Gong.mp4"
+loop
+crossorigin="anonymous"
+webkit-playsinline
+playsinline>
+</video>
+
+<!-- VIDEO SULING -->
+
+<video
+id="Sompoton-video"
+src="video/Sompoton.mp4"
+loop
+crossorigin="anonymous"
+webkit-playsinline
+playsinline>
+</video>
+
+</a-assets>
+
+<!-- CAMERA -->
 
 <a-camera position="0 0 0"></a-camera>
 
+<!-- ================= -->
+<!-- MARKER GONG -->
+<!-- ================= -->
+
+<a-entity mindar-image-target="targetIndex: 0">
+
+<a-video
+src="#Gong-video"
+width="1.6"
+height="0.9"
+position="0 0 0">
+</a-video>
+
+</a-entity>
+
+<!-- ================= -->
+<!-- MARKER SULING -->
+<!-- ================= -->
+
+<a-entity mindar-image-target="targetIndex: 1">
+
+<a-video
+src="#Sompoton-video"
+width="1.6"
+height="0.9"
+position="0 0 0">
+</a-video>
+
+</a-entity>
+
 </a-scene>
+
+<script>
+
+/* VIDEO */
+
+const GongVideo = document.querySelector("#Gong-video");
+const SompotonVideo = document.querySelector("#Sompoton-video");
+
+/* GONG */
+
+document
+.querySelector('[mindar-image-target="targetIndex: 0"]')
+.addEventListener("targetFound", () => {
+
+GongVideo.play();
+
+});
+
+/* SULING */
+
+document
+.querySelector('[mindar-image-target="targetIndex: 1"]')
+.addEventListener("targetFound", () => {
+
+SompotonVideo.play();
+
+});
+
+</script>
 
 </body>
 </html>
