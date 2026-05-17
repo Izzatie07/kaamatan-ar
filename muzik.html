@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 
-<title>AR Muzik</title>
+<title>AR Video</title>
 
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
@@ -16,61 +16,19 @@
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial, sans-serif;
-}
-
-/* BUTTON VIDEO */
-
-.video-btn{
-
-display:none;
-
-position:fixed;
-
-bottom:40px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-background:gold;
-
-padding:15px 25px;
-
-border-radius:10px;
-
-font-size:20px;
-
-font-weight:bold;
-
-text-decoration:none;
-
-color:black;
-
-z-index:999;
-
 }
 
 .scan-text{
-
 position:fixed;
-
 top:20px;
-
 left:50%;
-
 transform:translateX(-50%);
-
 background:rgba(0,0,0,0.7);
-
 color:white;
-
 padding:10px 20px;
-
 border-radius:10px;
-
 z-index:999;
-
+font-family:Arial;
 }
 
 </style>
@@ -80,70 +38,81 @@ z-index:999;
 <body>
 
 <div class="scan-text">
-Scan marker alat muzik
+Scan marker Gong
 </div>
 
-<!-- BUTTON VIDEO -->
-
-<a
-id="videoLink"
-class="video-btn"
-target="_blank">
-Tonton Video
-</a>
-
 <a-scene
+
 mindar-image="imageTargetSrc: ./muzik.mind;"
+
 embedded
+
 vr-mode-ui="enabled: false"
-device-orientation-permission-ui="enabled: false">
+
+device-orientation-permission-ui="enabled: false"
+
+color-space="sRGB"
+
+renderer="colorManagement: true; physicallyCorrectLights"
+
+>
+
+<!-- VIDEO -->
+
+<a-assets>
+
+<video
+id="GongVideo"
+src="./video/Gong.mp4"
+muted
+loop
+playsinline
+webkit-playsinline
+crossorigin="anonymous">
+</video>
+
+</a-assets>
+
+<!-- CAMERA -->
 
 <a-camera position="0 0 0"></a-camera>
 
-<!-- MARKER GONG -->
+<!-- MARKER -->
 
 <a-entity mindar-image-target="targetIndex: 0">
-</a-entity>
 
-<!-- MARKER SULING -->
+<a-video
+src="#GongVideo"
+position="0 0 0"
+width="1.5"
+height="0.9">
+</a-video>
 
-<a-entity mindar-image-target="targetIndex: 1">
 </a-entity>
 
 </a-scene>
 
 <script>
 
-const button = document.querySelector("#videoLink");
+const video = document.querySelector("#GongVideo");
 
-/* GONG */
-
-const gongTarget = document.querySelector(
+const target = document.querySelector(
 '[mindar-image-target="targetIndex: 0"]'
 );
 
-gongTarget.addEventListener("targetFound", () => {
+/* BILA MARKER DETECT */
 
-button.style.display = "block";
+target.addEventListener("targetFound", () => {
 
-button.href =
-"https://youtu.be/Fs3xR-ihuMU?si=IjuKpcmePfWCyC-U";
+video.play();
 
 });
 
+/* BILA MARKER HILANG */
 
-/* SULING */
+target.addEventListener("targetLost", () => {
 
-const sulingTarget = document.querySelector(
-'[mindar-image-target="targetIndex: 1"]'
-);
-
-sulingTarget.addEventListener("targetFound", () => {
-
-button.style.display = "block";
-
-button.href =
-"https://youtube.com/shorts/Mg7AtuLnDTo?si=sw0B86b5lxzKo7tk";
+video.pause();
 
 });
 
