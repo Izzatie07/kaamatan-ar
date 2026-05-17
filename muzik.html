@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html>
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AR Alat Muzik</title>
+<title>AR Muzik</title>
 
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
@@ -17,32 +16,6 @@
 body{
 margin:0;
 overflow:hidden;
-font-family:Arial, sans-serif;
-}
-
-.scan-text{
-position:fixed;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(0,0,0,0.7);
-color:white;
-padding:10px 20px;
-border-radius:10px;
-z-index:999;
-}
-
-.back-btn{
-position:fixed;
-bottom:20px;
-left:20px;
-background:gold;
-padding:10px 20px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold;
-color:black;
-z-index:999;
 }
 
 </style>
@@ -51,78 +24,33 @@ z-index:999;
 
 <body>
 
-<div class="scan-text">
-Scan marker alat muzik
-</div>
-
-<a href="index.html" class="back-btn">
-← Kembali
-</a>
-
 <a-scene
-
 mindar-image="imageTargetSrc: ./muzik.mind;"
-
 embedded
-
 vr-mode-ui="enabled: false"
-
-device-orientation-permission-ui="enabled: false"
-
-color-space="sRGB"
-
-renderer="colorManagement: true; physicallyCorrectLights"
-
->
+device-orientation-permission-ui="enabled: false">
 
 <a-camera position="0 0 0"></a-camera>
 
-<!-- GONG -->
-
 <a-entity mindar-image-target="targetIndex: 0">
-</a-entity>
-
-<!-- SULING -->
-
-<a-entity mindar-image-target="targetIndex: 1">
 </a-entity>
 
 </a-scene>
 
 <script>
 
-/* GONG */
+const target = document.querySelector(
+'[mindar-image-target="targetIndex: 0"]'
+);
 
-const gongTarget = document.querySelector('[mindar-image-target="targetIndex: 0"]');
+target.addEventListener("targetFound", () => {
 
-gongTarget.addEventListener("targetFound", () => {
-
-setTimeout(() => {
-
-location.href =
-"https://youtu.be/Fs3xR-ihuMU?si=_6ACmbEkSIfv24wq";
-
-}, 1000);
-
-});
-
-
-/* SULING */
-
-const sulingTarget = document.querySelector('[mindar-image-target="targetIndex: 1"]');
-
-sulingTarget.addEventListener("targetFound", () => {
-
-setTimeout(() => {
-
-location.href =
-"https://youtube.com/shorts/Mg7AtuLnDTo?si=6kAkv1ZXYn_EWfGK";
-
-}, 1000);
+alert("Marker detect!");
 
 });
 
 </script>
 
 </body>
+
 </html>
