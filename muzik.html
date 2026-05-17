@@ -63,7 +63,7 @@ renderer="colorManagement: true; physicallyCorrectLights"
 <!-- VIDEO GONG -->
 
 <video
-id="gong-video"
+id="Gong-video"
 src="video/Gong.mp4"
 loop
 crossorigin="anonymous"
@@ -74,8 +74,8 @@ playsinline>
 <!-- VIDEO SULING -->
 
 <video
-id="Sompoton-video"
-src="video/Sompoton.mp4"
+id="Suling-video"
+src="video/Suling.mp4"
 loop
 crossorigin="anonymous"
 webkit-playsinline
@@ -110,7 +110,7 @@ position="0 0 0">
 <a-entity mindar-image-target="targetIndex: 1">
 
 <a-video
-src="#Sompoton-video"
+src="#Suling-video"
 width="1.6"
 height="0.9"
 position="0 0 0">
@@ -125,7 +125,7 @@ position="0 0 0">
 /* VIDEO */
 
 const GongVideo = document.querySelector("#Gong-video");
-const SompotonVideo = document.querySelector("#Sompoton-video");
+const SulingVideo = document.querySelector("#Suling-video");
 
 /* GONG */
 
@@ -143,7 +143,7 @@ document
 .querySelector('[mindar-image-target="targetIndex: 1"]')
 .addEventListener("targetFound", () => {
 
-SompotonVideo.play();
+SulingVideo.play();
 
 });
 
