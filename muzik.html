@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 
-<title>AR Video</title>
+<title>AR Gong</title>
 
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 
@@ -18,28 +18,11 @@ margin:0;
 overflow:hidden;
 }
 
-.scan-text{
-position:fixed;
-top:20px;
-left:50%;
-transform:translateX(-50%);
-background:rgba(0,0,0,0.7);
-color:white;
-padding:10px 20px;
-border-radius:10px;
-z-index:999;
-font-family:Arial;
-}
-
 </style>
 
 </head>
 
 <body>
-
-<div class="scan-text">
-Scan marker Gong
-</div>
 
 <a-scene
 
@@ -49,74 +32,30 @@ embedded
 
 vr-mode-ui="enabled: false"
 
-device-orientation-permission-ui="enabled: false"
-
-color-space="sRGB"
-
-renderer="colorManagement: true; physicallyCorrectLights"
-
->
-
-<!-- VIDEO -->
+device-orientation-permission-ui="enabled: false">
 
 <a-assets>
 
-<video
-id="GongVideo"
-src="./video/Gong.mp4"
-muted
-loop
-playsinline
-webkit-playsinline
-crossorigin="anonymous">
-</video>
+<img
+id="GongImage"
+src="./images/Gong.jpg">
 
 </a-assets>
 
-<!-- CAMERA -->
-
 <a-camera position="0 0 0"></a-camera>
-
-<!-- MARKER -->
 
 <a-entity mindar-image-target="targetIndex: 0">
 
-<a-video
-src="#GongVideo"
+<a-image
+src="#GongImage"
 position="0 0 0"
-width="1.5"
-height="0.9">
-</a-video>
+width="1"
+height="1">
+</a-image>
 
 </a-entity>
 
 </a-scene>
-
-<script>
-
-const video = document.querySelector("#GongVideo");
-
-const target = document.querySelector(
-'[mindar-image-target="targetIndex: 0"]'
-);
-
-/* BILA MARKER DETECT */
-
-target.addEventListener("targetFound", () => {
-
-video.play();
-
-});
-
-/* BILA MARKER HILANG */
-
-target.addEventListener("targetLost", () => {
-
-video.pause();
-
-});
-
-</script>
 
 </body>
 
