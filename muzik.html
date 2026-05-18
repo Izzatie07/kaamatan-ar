@@ -16,6 +16,103 @@
 body{
 margin:0;
 overflow:hidden;
+font-family:Arial, sans-serif;
+}
+
+/* YOUTUBE POPUP */
+
+#youtubePopup{
+
+display:none;
+
+position:fixed;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%, -50%);
+
+width:90%;
+
+max-width:700px;
+
+height:400px;
+
+background:black;
+
+z-index:9999;
+
+border-radius:15px;
+
+overflow:hidden;
+
+box-shadow:0 0 20px rgba(0,0,0,0.5);
+
+}
+
+/* IFRAME */
+
+#youtubePopup iframe{
+
+width:100%;
+
+height:100%;
+
+border:none;
+
+}
+
+/* CLOSE BUTTON */
+
+.close-btn{
+
+position:absolute;
+
+top:10px;
+
+right:10px;
+
+background:red;
+
+color:white;
+
+border:none;
+
+padding:8px 12px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+z-index:10000;
+
+font-weight:bold;
+
+}
+
+/* TEXT */
+
+.scan-text{
+
+position:fixed;
+
+top:20px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+background:rgba(0,0,0,0.7);
+
+color:white;
+
+padding:10px 20px;
+
+border-radius:10px;
+
+z-index:999;
+
 }
 
 </style>
@@ -23,6 +120,25 @@ overflow:hidden;
 </head>
 
 <body>
+
+<div class="scan-text">
+Scan marker Gong
+</div>
+
+<!-- YOUTUBE POPUP -->
+
+<div id="youtubePopup">
+
+<button class="close-btn" onclick="closeVideo()">
+X
+</button>
+
+<iframe
+id="youtubeFrame"
+allowfullscreen>
+</iframe>
+
+</div>
 
 <a-scene
 
@@ -32,30 +148,59 @@ embedded
 
 vr-mode-ui="enabled: false"
 
-device-orientation-permission-ui="enabled: false">
+device-orientation-permission-ui="enabled: false"
 
-<a-assets>
-
-<img
-id="GongImage"
-src="./images/Gong.jpg">
-
-</a-assets>
+>
 
 <a-camera position="0 0 0"></a-camera>
 
+<!-- MARKER -->
+
 <a-entity mindar-image-target="targetIndex: 0">
-
-<a-image
-src="#GongImage"
-position="0 0 0"
-width="0.5"
-height="0.5">
-</a-image>
-
 </a-entity>
 
 </a-scene>
+
+<script>
+
+/* TARGET */
+
+const target = document.querySelector(
+'[mindar-image-target="targetIndex: 0"]'
+);
+
+/* POPUP */
+
+const popup = document.querySelector("#youtubePopup");
+
+const frame = document.querySelector("#youtubeFrame");
+
+
+/* BILA SCAN */
+
+target.addEventListener("targetFound", () => {
+
+popup.style.display = "block";
+
+/* YOUTUBE EMBED */
+
+frame.src =
+"https://www.youtube.com/embed/Mg7AtuLnDTo?autoplay=1";
+
+});
+
+
+/* CLOSE VIDEO */
+
+function closeVideo(){
+
+popup.style.display = "none";
+
+frame.src = "";
+
+}
+
+</script>
 
 </body>
 
